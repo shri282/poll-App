@@ -47,10 +47,10 @@
                     <ul>
                         @foreach($poll['options'] as $option)
                             @php
-                                $percentage = $poll['totalVotes'] > 0 ? ($option['votes'] / $poll['totalVotes']) * 100 : 0;
+                                $percentage = $poll['totalVoters'] > 0 ? ($option['votes'] / $poll['totalVoters']) * 100 : 0;
                             @endphp
-                            <li style="background-color: rgba(255, 255, 255); width: 26%;">
-                                {{ $option['option'] }} - {{ $option['votes'] }}
+                            <li>
+                                {{ $option['option'] }} - {{ $option['votes'] }} - {{ $percentage }}
                             </li>
                         @endforeach
                     </ul>
@@ -90,7 +90,7 @@
     </footer>
 </div>
     <div class="copy-rights">
-        <p>&copy; 2024 PollApp. All rights reserved.</p>
-        <p>Designed with love by <a href="https://yourdesignagency.com" target="_blank">Your Design Agency</a></p>
+        <p style="margin: 5px;">&copy; 2024 PollApp. All rights reserved.</p>
+        <p style="margin: 5px;">Designed with love by <a href="https://yourdesignagency.com" target="_blank">Your Design Agency</a></p>
     </div>
 </html>
