@@ -1,0 +1,127 @@
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header .logo {
+    display: flex;
+    align-items: center;
+}
+
+.header .logo img {
+    height: 50px; 
+    margin-right: 10px; 
+}
+
+.header .logo h4 {
+    color: #ae30b9;
+    font-size: 1.5rem; 
+    margin: 0; 
+}
+
+.header .nav-menus {
+    display: flex;
+}
+
+.header .nav-menus ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header .nav-menus ul li {
+    margin-left: 20px; 
+}
+
+.header .nav-menus ul li a {
+    text-decoration: none;
+    color: #333; 
+    font-size: 1rem; 
+    transition: color 0.3s ease; 
+}
+
+.header .nav-menus ul li a:hover {
+    color: #ae30b9;
+}
+
+.header .heading {
+    text-align: center;
+    color: #ae30b9;
+}
+
+.header .heading h3 {
+    margin: 0;
+    color: #333; 
+    font-size: 1.25rem; 
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    margin-top: 40%;
+    justify-content: space-between;
+}
+
+.contents {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+}
+
+.body .categories li {
+    list-style-type: none;
+    cursor: pointer;
+    transition: margin-left 0.3s ease, transform 0.3s ease;
+}
+
+.body .categories li:hover {
+    color: red;
+    margin-left: 5px;
+}
+
+.body .polls {
+    display: grid;
+    align-items: center;
+    width: 80%;
+    align-self: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.poll-card {
+   background-color: #ae30b9;
+   padding: 30px;
+}
+
+.poll-card li {
+    list-style-type: none;
+    padding: 5px;
+    margin-bottom: 3px;
+    color: #000; /* Ensure text is readable */
+    font-size: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.poll-card li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #f0f0f0; /* Fallback color */
+    z-index: -1;
+}
+
