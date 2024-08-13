@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
+    <script src="js/index.js"></script>
     <title>Poll App</title>
 </head>
 
@@ -35,7 +36,7 @@
             <h3 style="text-transform: capitalize; color:gray">poll catagories:</h3>
             <ul>
                 @foreach($categories as $category)
-                  <li>{{ $category }}</li>
+                  <li onclick="applyfilter(event)">{{ $category }}</li>
                 @endforeach
             </ul>
         </div>
@@ -50,7 +51,8 @@
                                 $percentage = $poll['totalVoters'] > 0 ? ($option['votes'] / $poll['totalVoters']) * 100 : 0;
                             @endphp
                             <li>
-                                {{ $option['option'] }} - {{ $option['votes'] }} - {{ $percentage }}
+                                <p>{{ $option['option'] }}</p> 
+                                <h5 style="margin: 0; color:blueviolet;">{{ round($percentage) . '%' }}</h5> 
                             </li>
                         @endforeach
                     </ul>

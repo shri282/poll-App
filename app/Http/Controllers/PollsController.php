@@ -8,14 +8,14 @@ use App\Models\Polls;
 
 class PollsController extends Controller
 {
-    public function getCatagories() {
-        $polls = Polls::all();
-        $categories = [];
-        foreach ($polls as $poll) {
-            if (!in_array($poll['category'], $categories)) {
-                $categories[] = $poll['category'];
-            }
+    public function getCatagories(Request $request) {
+        $selectedCategory = $request->input('category');
+        $polls = Polls::query();
+        if ($selectedCategory) {
+            $polls->where('category', $selectedCategory);
         }
+        $polls = $polls->get();
+        $categories = Polls::distinct()->pluck('category');
 
         return view('welcome', [ 'categories' => $categories, 'polls' => $polls ]);
     }
