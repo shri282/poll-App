@@ -14,43 +14,42 @@ function showPollForm() {
    form.style.display = form.style.display === 'flex' ? 'none' : 'flex';
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('poll-form');
 
-document.addEventListener('DOMContentLoaded', (event) => {
-   const addOptionButton = document.getElementById('add-option-button');
-   const optionsContainer = document.getElementById('options-container');
-   const optionInput = document.getElementById('option-input');
+    form.addEventListener('submit', function(event) {
+       event.preventDefault();
+       const data = {
+            question: document.querySelector('textarea[name="question"]').value,
+            description: document.querySelector('textarea[name="description"]').value,
+            options: document.querySelector('textarea[name="options"]').value,
+            category: document.querySelector('input[name="category"]').value,
+            status: document.querySelector('select[name="status"]').value,
+        };
 
-   addOptionButton.addEventListener('click', () => {
-       const optionValue = optionInput.value.trim();
-       if (optionValue !== '') {
-           // Create a new div for the option
-           const optionDiv = document.createElement('div');
-           optionDiv.classList.add('option-item');
+        fetch('api/polls/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then((response) => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then((data) => {
+            alert(data.message);
+            form.reset();
+            form.style.display = 'none';
+        })
+        .catch((error) => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
 
-           // Create an input element for the option
-           const optionInputField = document.createElement('input');
-           optionInputField.type = 'text';
-           optionInputField.name = 'options[]';
-           optionInputField.value = optionValue;
-           optionInputField.readOnly = true;
+    })
+    
+})
 
-           // Create a remove button
-           const removeButton = document.createElement('button');
-           removeButton.type = 'button';
-           removeButton.innerText = 'remove';
-           removeButton.addEventListener('click', () => {
-               optionsContainer.removeChild(optionDiv);
-           });
 
-           // Append the input field and remove button to the option div
-           optionDiv.appendChild(optionInputField);
-           optionDiv.appendChild(removeButton);
-
-           // Append the option div to the container
-           optionsContainer.appendChild(optionDiv);
-
-           // Clear the option input
-           optionInput.value = '';
-       }
-   });
-});

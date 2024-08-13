@@ -11,4 +11,6 @@ class Polls extends Model
     protected $casts = [
         'options' => 'array'
     ];
+    protected $guarded = [];
+    protected $fillable = ['question', 'description', 'options', 'status', 'category', 'totalVoters'];
 }
