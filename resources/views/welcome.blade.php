@@ -59,6 +59,24 @@
                 </div>
             @endforeach
         </div>
+
+        <button onclick="showPollForm()" class="add-poll-btn">ADD NEW POLL</button>
+
+        <form class="poll-form" action="" id="poll-form">
+            <input type="text" placeholder="Enter the question" name="question" id="">
+            <input type="text" placeholder="Enter the description" name="description" id="">
+            <div class="options">
+                <input type="text" placeholder="Enter the option" id="option-input">
+                <button type="button" id="add-option-button">ADD</button>
+            </div>
+            <div class="options-container" id="options-container"></div>
+            <input type="text" placeholder="Enter the category" name="category" id="">
+            <select name="status" id="">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+            <button type="submit">ADD</button>
+        </form>
     </body>
     
     <footer class="footer">
