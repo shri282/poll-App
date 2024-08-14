@@ -28,7 +28,9 @@
             </li>
             @endforeach
         </ul>
-        <a href="polls/{{ $poll['id'] }}">Edit</a>
+        <a class="edit-link" href="polls/{{ $poll['id'] }}">
+            Edit
+        </a>
     </div>
     @endforeach
 </div>
