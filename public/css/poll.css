@@ -1,0 +1,48 @@
+.poll-contents {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin-top: 5%;
+    width: 30%;
+    background-color: black;
+    padding: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+.poll-contents p {
+    padding: 10px;
+    background-color: white;
+}
+
+.poll-contents .options {
+    list-style: none;
+    background-color: white;
+    padding: 10px;
+}
+
+.poll-contents h5 {
+    color: white;
+    margin: 0;
+}
+
+.option div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.poll-contents button {
+    width: 30%;
+    align-self: center;
+    padding: 8px;
+    border-radius: 5px;
+    background-color:chocolate;
+    box-shadow: 2px 2px 5px rgba(253, 252, 252, 0.3);
+    transition: opacity 0.3s ease;
+}
+
+.poll-contents button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}

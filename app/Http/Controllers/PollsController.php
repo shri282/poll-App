@@ -44,7 +44,7 @@ class PollsController extends Controller {
     
             return response()->json([
                 'status' => true,
-                'data' => '',
+                'data' => $poll,
                 'message' => 'Poll added successfully'
             ], 200);
         } catch (Exception $e) {
@@ -56,4 +56,38 @@ class PollsController extends Controller {
         }
 
     }
+
+    public function getPoll($id) {
+       try {
+        $poll = Polls::findOrFail($id);
+        return view('poll', ['poll' => $poll]);
+       } catch (Exception $e) {
+        return redirect()->route('polls.index')->with('error', 'Poll not found.');
+       }
+    }
+
+    public function editPoll(Request $request) {
+       $id = $request->input('pollId');
+       $optionsData = $request->input('optionsData');
+
+       try {
+           Polls::where('id', $id)
+            ->update([
+                'options' => $optionsData,
+            ]);
+
+            return response()->json([
+                'status' => true,
+                'data' => '',
+                'message' => 'Poll updated successfully'
+            ], 200);
+       } catch (Exception $e) {
+        return response()->json([
+            'status' => false,
+            'data' => null,
+            'message' => $e->getMessage(),
+        ], 500);
+       }
+    }
+
 }

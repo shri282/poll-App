@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert(data.message);
             form.reset();
             form.style.display = 'none';
+            appendCreatedPoll(data.data);
         })
         .catch((error) => {
             console.error('There has been a problem with your fetch operation:', error);
@@ -51,5 +52,31 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     
 })
+
+function appendCreatedPoll(poll) {
+  const div = document.createElement('div');
+  const question = document.createElement('p');
+  const optionLists = document.createElement('ul');
+  div.classList.add('poll-card');
+  question.textContent = poll.question + '?';
+  const options = poll.options;
+  for(optionObj of options) {
+    const list = document.createElement('li'); 
+    const option = document.createElement('p'); 
+    const percentage = document.createElement('h5'); 
+    option.textContent = optionObj.option;
+    percentage.textContent = '0%';
+    percentage.style.margin = '0';
+    percentage.style.color = 'blueviolet';
+    list.appendChild(option);
+    list.appendChild(percentage);
+    optionLists.appendChild(list);
+  }
+
+  div.appendChild(question);
+  div.appendChild(optionLists);
+  const polls = document.getElementById('polls');
+  polls.appendChild(div);
+}
 
 
