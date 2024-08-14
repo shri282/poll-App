@@ -1,0 +1,37 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 25%;
+    margin-top: 10%;
+    padding: 30px 20px;
+    border-radius: 5px;
+    background-color: rgb(146, 124, 124);
+}
+
+.login-form div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.login-form button {
+    width: 20%;
+    align-self: center;
+    padding: 8px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: opacity 0.3s ease;
+}
+
+.login-form input {
+    width: 95%;
+    padding: 5px;
+}
+
+.login-form button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
