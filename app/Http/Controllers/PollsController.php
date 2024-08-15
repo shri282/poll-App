@@ -8,7 +8,7 @@ use App\Models\Polls;
 use Exception;
 
 class PollsController extends Controller {
-    public function getPolls(Request $request) {
+    public function index(Request $request) {
         $selectedCategory = $request->input('category');
         $polls = Polls::query();
         if ($selectedCategory) {
@@ -20,7 +20,7 @@ class PollsController extends Controller {
         return view('welcome', [ 'categories' => $categories, 'polls' => $polls ]);
     }
 
-    public function addPoll(Request $request) {
+    public function create(Request $request) {
         $question = $request->input('question');
         $description = $request->input('description');
         $category = $request->input('category');
@@ -57,16 +57,16 @@ class PollsController extends Controller {
 
     }
 
-    public function getPoll($id) {
+    public function show($id) {
        try {
         $poll = Polls::findOrFail($id);
         return view('poll', ['poll' => $poll]);
        } catch (Exception $e) {
-        return redirect()->route('polls.index')->with('error', 'Poll not found.');
+        return redirect()->route('home')->with('error', 'Poll not found.');
        }
     }
 
-    public function editPoll(Request $request) {
+    public function update(Request $request) {
        $id = $request->input('pollId');
        $optionsData = $request->input('optionsData');
 
@@ -87,6 +87,24 @@ class PollsController extends Controller {
             'data' => null,
             'message' => $e->getMessage(),
         ], 500);
+       }
+    }
+
+    public function destroy($id) {
+       try {
+            Polls::findOrFail($id)->delete();
+
+            return response()->json([
+                'status'=> true,
+                'data'=> '',
+                'message'=> 'poll deleted successfully'
+            ], 200);
+       } catch (Exception $e) {
+            return response()->json([
+                'status'=> false,
+                'data'=> null,
+                'message'=> $e->getMessage(),
+            ], 500);
        }
     }
 

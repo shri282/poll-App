@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert(data.message);
             form.reset();
             form.style.display = 'none';
-            appendCreatedPoll(data.data);
+            addPollUi(data.data);
         })
         .catch((error) => {
             console.error('There has been a problem with your fetch operation:', error);
@@ -53,30 +53,76 @@ document.addEventListener('DOMContentLoaded', function() {
     
 })
 
-function appendCreatedPoll(poll) {
-  const div = document.createElement('div');
-  const question = document.createElement('p');
-  const optionLists = document.createElement('ul');
+function addPollUi(poll) {
+  const [div, question, optionLists, actions, editEle, deleteEle, idEle] = [
+    document.createElement('div'), 
+    document.createElement('p'), 
+    document.createElement('ul'), 
+    document.createElement('div'),
+    document.createElement('a'),
+    document.createElement('button'),
+    document.createElement('h1')
+  ];
+
+  Object.assign(editEle, {
+    innerHTML: 'Edit',
+    className: 'edit-link',
+    href: `polls/${poll.id}`
+  });
+
+  idEle.innerText = poll.id;
+  idEle.style.display = 'none';
+  deleteEle.innerHTML = 'Delete';
+  deleteEle.onclick = () => deletePoll(poll.id);
+
+  actions.classList.add('poll-actions');
+  actions.append(editEle, deleteEle);
+
   div.classList.add('poll-card');
   question.textContent = poll.question + '?';
-  const options = poll.options;
-  for(optionObj of options) {
-    const list = document.createElement('li'); 
-    const option = document.createElement('p'); 
-    const percentage = document.createElement('h5'); 
+
+  poll.options.forEach((optionObj) => {
+    const [list, option, percentage] = [document.createElement('li'), document.createElement('p'), document.createElement('h5')]; 
+    
     option.textContent = optionObj.option;
     percentage.textContent = '0%';
     percentage.style.margin = '0';
     percentage.style.color = 'blueviolet';
-    list.appendChild(option);
-    list.appendChild(percentage);
-    optionLists.appendChild(list);
-  }
+    
+    list.append(option, percentage);
+    optionLists.append(list);
+  });
 
-  div.appendChild(question);
-  div.appendChild(optionLists);
-  const polls = document.getElementById('polls');
-  polls.appendChild(div);
+  div.append(idEle, question, optionLists, actions);
+  document.getElementById('polls').append(div);
+}
+
+
+function deletePoll(id) {
+    const url = 'api/polls/' +id
+    const options = {
+        method: 'delete',
+        headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+    }
+
+    fetch(url, options).then((response) => {
+       return response.json();
+    }).then((data) => {
+       if(!data.status) return alert('Error: '+data.message);
+       removePollUi(id);
+       alert('poll deleted successfully');
+    }).catch((error) => {
+       alert(error);
+    }); 
+}
+
+function removePollUi(id) {
+    const pollCards = document.getElementsByClassName('poll-card');
+    const poll = Array.from(pollCards).find((poll) => Number(poll.getElementsByTagName('h1')[0].innerText) === id);
+    poll.remove();
 }
 
 

@@ -8,7 +8,7 @@
     <h3 style="text-transform: capitalize; color:gray">poll catagories:</h3>
     <ul>
         @foreach($categories as $category)
-        <li onclick="applyfilter(event)">{{ $category }}</li>
+        <li onclick="applyfilter(event)">{{ $category }}</li><br>
         @endforeach
     </ul>
 </div>
@@ -16,6 +16,7 @@
 <div class="polls" id="polls">
     @foreach($polls as $poll)
     <div class="poll-card">
+        <h1 style="display: none;">{{ $poll['id'] }}</h1>
         <p>{{ $poll['question'] . '?'}}</p>
         <ul>
             @foreach($poll['options'] as $option)
@@ -28,9 +29,12 @@
             </li>
             @endforeach
         </ul>
-        <a class="edit-link" href="polls/{{ $poll['id'] }}">
-            Edit
-        </a>
+        <div class="poll-actions">
+            <a class="edit-link" href="{{ route('polls.show', ['id' => $poll['id']]) }}">
+                Edit
+            </a>
+            <button onclick="deletePoll(<?php echo $poll['id'] ?>)">Delete</button>       
+        </div>
     </div>
     @endforeach
 </div>

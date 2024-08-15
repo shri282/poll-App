@@ -8,5 +8,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/polls/add', [PollsController::class, 'addPoll']);
-Route::put('/polls/edit', [PollsController::class, 'editpoll']);
+Route::post('/polls/add', [PollsController::class, 'create']);
+Route::put('/polls/edit', [PollsController::class, 'update']);
+Route::delete('/polls/{id}', [PollsController::class, 'destroy']);
