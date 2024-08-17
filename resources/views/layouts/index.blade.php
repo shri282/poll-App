@@ -21,9 +21,14 @@
     
         <div class="nav-menus">
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/polls">Polls</a></li>
+                @if(Auth::check())
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ route('logout') }}">Logout</a></li>
+                @else
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/about">About Us</a></li>
+                @endif
             </ul>
         </div>
     

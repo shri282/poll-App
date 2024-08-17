@@ -31,7 +31,7 @@
     padding: 5px;
 }
 
-.login-form button:hover {
+.login-form button:hover {  
     cursor: pointer;
     opacity: 0.8;
 }
