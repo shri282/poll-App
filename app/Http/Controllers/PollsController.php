@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\logger;
 use Illuminate\Http\Request;
 use App\Models\Polls;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class PollsController extends Controller {
     public function index(Request $request) {

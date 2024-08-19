@@ -17,9 +17,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('totalVoters');
             $table->string('status')->default('active');
+            $table->integer('created_by')->default(0);
             $table->dateTime('end_date')->nullable();
             $table->dateTime('start_date')->nullable();
-            $table->boolean('is_anonymous')->default(false);
             $table->string('category')->nullable();
             $table->json('options')->nullable();;
             $table->timestamps();
