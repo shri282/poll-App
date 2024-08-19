@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Mail\WelcomeUserMail;
+use App\Jobs\welcomeMailSender;
 use Exception;
-use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+
 
 class UserController extends Controller
 {
@@ -19,13 +18,12 @@ class UserController extends Controller
         $password = $request->input('password');
 
         try {
-            Mail::to($email, $userName)->send(new WelcomeUserMail($userName));
             User::create([
                 'name' => $userName,
                 'email' => $email,
                 'password' => $password
             ]);
-            
+            welcomeMailSender::dispatch($email, $userName);
             return redirect('login');
         } catch (Exception $e) {
             logger('error occured ' .$e->getMessage());
