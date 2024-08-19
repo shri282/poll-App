@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\welcomeMailEvent;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Jobs\welcomeMailSender;
@@ -23,7 +24,8 @@ class UserController extends Controller
                 'email' => $email,
                 'password' => $password
             ]);
-            welcomeMailSender::dispatch($email, $userName);
+            logger('in controller.....');
+            welcomeMailEvent::dispatch($userName, $email);
             return redirect('login');
         } catch (Exception $e) {
             logger('error occured ' .$e->getMessage());
